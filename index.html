@@ -2,7 +2,7 @@
 <html lang="es">
 <head>
 <meta charset="UTF-8">
-<title>Calculadora de Ingeniería</title>
+<title>Calculadora Técnica</title>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 
 <style>
@@ -12,59 +12,46 @@ body {
   background: #eef2f6;
 }
 
-.app {
-  display: flex;
-  height: 100vh;
-}
-
-/* Sidebar */
-.sidebar {
-  width: 220px;
-  background: #0a3d62;
-  color: #fff;
-  padding: 15px;
-}
-
-.sidebar h3 {
-  margin-top: 0;
-  margin-bottom: 15px;
-  font-size: 18px;
-}
-
-.sidebar button {
-  width: 100%;
-  margin-bottom: 10px;
-  padding: 10px;
-  background: #07508a;
-  color: white;
-  border: none;
-  border-radius: 5px;
-  text-align: left;
-  cursor: pointer;
-}
-
-.sidebar button:hover {
-  background: #0c6cb3;
-}
-
-/* Main */
-.main {
-  flex: 1;
-  padding: 20px;
-  overflow-y: auto;
-}
-
-.block {
+.section {
   display: none;
+  height: 100vh;
+  padding: 20px;
+  box-sizing: border-box;
+}
+
+.section.active {
+  display: block;
+}
+
+.card {
   max-width: 500px;
+  margin: auto;
   background: white;
   padding: 20px;
-  border-radius: 10px;
+  border-radius: 12px;
   box-shadow: 0 4px 12px rgba(0,0,0,0.1);
 }
 
-.block.active {
-  display: block;
+/* Navegación */
+.nav {
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+  display: flex;
+  background: #0a3d62;
+}
+
+.nav button {
+  flex: 1;
+  padding: 12px;
+  border: none;
+  background: #0a3d62;
+  color: white;
+  font-size: 14px;
+}
+
+.nav button.active {
+  background: #07508a;
 }
 
 label {
@@ -99,105 +86,107 @@ pre {
 </head>
 
 <body>
-<div class="app">
 
-  <!-- Sidebar -->
-  <div class="sidebar">
-    <h3>Cálculos</h3>
-    <button onclick="showBlock('losa')">Losa de hormigón</button>
-    <button onclick="showBlock('bloque2')">Bloque 2</button>
-    <button onclick="showBlock('bloque3')">Bloque 3</button>
-    <button onclick="showBlock('bloque4')">Bloque 4</button>
-    <button onclick="showBlock('bloque5')">Bloque 5</button>
-  </div>
+<!-- SECCIÓN 1 -->
+<div id="sec1" class="section active">
+  <div class="card">
+    <h2>Losa de hormigón</h2>
 
-  <!-- Main -->
-  <div class="main">
+    <label>Largo (m)</label>
+    <input type="number" id="largo">
 
-    <!-- BLOQUE 1: LOSA -->
-    <div id="losa" class="block active">
-      <h2>Losa de hormigón</h2>
+    <label>Ancho (m)</label>
+    <input type="number" id="ancho">
 
-      <label>Largo (m)</label>
-      <input type="number" id="largo">
+    <label>Espesor (m)</label>
+    <input type="number" id="espesor">
 
-      <label>Ancho (m)</label>
-      <input type="number" id="ancho">
+    <label>Hormigón</label>
+    <select id="hormigon">
+      <option value="H17">H17</option>
+      <option value="H21">H21</option>
+      <option value="H25">H25</option>
+    </select>
 
-      <label>Espesor (m)</label>
-      <input type="number" id="espesor">
-
-      <label>Hormigón</label>
-      <select id="hormigon">
-        <option value="H17">H17</option>
-        <option value="H21">H21</option>
-        <option value="H25">H25</option>
-      </select>
-
-      <button class="calc" onclick="calcLosa()">Calcular</button>
-
-      <pre id="resLosa"></pre>
-    </div>
-
-    <!-- BLOQUE 2 -->
-    <div id="bloque2" class="block">
-      <h2>Bloque 2</h2>
-      <p>Próximo cálculo.</p>
-    </div>
-
-    <!-- BLOQUE 3 -->
-    <div id="bloque3" class="block">
-      <h2>Bloque 3</h2>
-      <p>Próximo cálculo.</p>
-    </div>
-
-    <!-- BLOQUE 4 -->
-    <div id="bloque4" class="block">
-      <h2>Bloque 4</h2>
-      <p>Próximo cálculo.</p>
-    </div>
-
-    <!-- BLOQUE 5 -->
-    <div id="bloque5" class="block">
-      <h2>Bloque 5</h2>
-      <p>Próximo cálculo.</p>
-    </div>
-
+    <button class="calc" onclick="calcLosa()">Calcular</button>
+    <pre id="resLosa"></pre>
   </div>
 </div>
 
+<!-- SECCIÓN 2 -->
+<div id="sec2" class="section">
+  <div class="card">
+    <h2>Cálculo 2</h2>
+    <p>Reservado para futuro.</p>
+  </div>
+</div>
+
+<!-- SECCIÓN 3 -->
+<div id="sec3" class="section">
+  <div class="card">
+    <h2>Cálculo 3</h2>
+    <p>Reservado para futuro.</p>
+  </div>
+</div>
+
+<!-- SECCIÓN 4 -->
+<div id="sec4" class="section">
+  <div class="card">
+    <h2>Cálculo 4</h2>
+    <p>Reservado para futuro.</p>
+  </div>
+</div>
+
+<!-- SECCIÓN 5 -->
+<div id="sec5" class="section">
+  <div class="card">
+    <h2>Cálculo 5</h2>
+    <p>Reservado para futuro.</p>
+  </div>
+</div>
+
+<!-- Navegación -->
+<div class="nav">
+  <button class="active" onclick="show(1)">Losa</button>
+  <button onclick="show(2)">2</button>
+  <button onclick="show(3)">3</button>
+  <button onclick="show(4)">4</button>
+  <button onclick="show(5)">5</button>
+</div>
+
 <script>
-function showBlock(id) {
-  document.querySelectorAll('.block').forEach(b => b.classList.remove('active'));
-  document.getElementById(id).classList.add('active');
+function show(n) {
+  document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
+  document.querySelectorAll('.nav button').forEach(b => b.classList.remove('active'));
+  document.getElementById('sec' + n).classList.add('active');
+  document.querySelectorAll('.nav button')[n-1].classList.add('active');
 }
 
-/* Cálculo Losa */
 function calcLosa() {
   const l = +largo.value;
   const a = +ancho.value;
   const e = +espesor.value;
+
   if (!l || !a || !e) {
-    resLosa.textContent = "Completá todos los datos.";
+    resLosa.textContent = "Completá todos los campos.";
     return;
   }
-
-  const volumen = l * a * e;
-  const tipo = hormigon.value;
 
   const d = {
     H17: { c: 300, a: 0.50, p: 0.70 },
     H21: { c: 350, a: 0.48, p: 0.65 },
     H25: { c: 400, a: 0.45, p: 0.60 }
-  }[tipo];
+  }[hormigon.value];
+
+  const v = l * a * e;
 
   resLosa.textContent =
-`Volumen: ${volumen.toFixed(2)} m³
-
-Cemento: ${(volumen * d.c).toFixed(0)} kg
-Arena: ${(volumen * d.a).toFixed(2)} m³
-Piedra: ${(volumen * d.p).toFixed(2)} m³`;
+`Volumen: ${v.toFixed(2)} m³
+Cemento: ${(v*d.c).toFixed(0)} kg
+Arena: ${(v*d.a).toFixed(2)} m³
+Piedra: ${(v*d.p).toFixed(2)} m³`;
 }
 </script>
+
 </body>
 </html>
