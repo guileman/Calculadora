@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Cálculo de Losa</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="manifest" href="manifest.json">
+</head>
+<body>
+  <h2>Cálculo de materiales – Losa</h2>
+
+  <label>Largo (m)</label>
+  <input type="number" id="largo" step="0.1"><br>
+
+  <label>Ancho (m)</label>
+  <input type="number" id="ancho" step="0.1"><br>
+
+  <label>Espesor (m)</label>
+  <input type="number" id="espesor" step="0.01"><br>
+
+  <label>Tipo de Hormigón</label>
+  <select id="hormigon">
+    <option value="H17">H17</option>
+    <option value="H21">H21</option>
+    <option value="H25">H25</option>
+  </select><br><br>
+
+  <button onclick="calcular()">Calcular</button>
+
+  <pre id="resultado"></pre>
+
+<script>
+if ('serviceWorker' in navigator) {
+  navigator.serviceWorker.register('sw.js');
+}
+
+function calcular() {
+  const l = +largo.value;
+  const a = +ancho.value;
+  const e = +espesor.value;
+  const tipo = hormigon.value;
+
+  const volumen = l * a * e;
+
+  const dosificaciones = {
+    H17: { cemento: 300, arena: 0.5, piedra: 0.7 },
+    H21: { cemento: 350, arena: 0.48, piedra: 0.65 },
+    H25: { cemento: 400, arena: 0.45, piedra: 0.6 }
+  };
+
+  const d = dosificaciones[tipo];
+
+  resultado.textContent =
+`Volumen: ${volumen.toFixed(2)} m³
+
+Cemento: ${(volumen * d.cemento).toFixed(0)} kg
+Arena: ${(volumen * d.arena).toFixed(2)} m³
+Piedra: ${(volumen * d.piedra).toFixed(2)} m³`;
+}
+</script>
+</body>
+</html>

@@ -1,0 +1,9 @@
+{
+  "name": "Cálculo de Losa",
+  "short_name": "Losa",
+  "start_url": "index.html",
+  "display": "standalone",
+  "background_color": "#ffffff",
+  "theme_color": "#0a3d62",
+  "icons": []
+}
