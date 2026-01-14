@@ -5,29 +5,98 @@
   <title>Cálculo de Losa</title>
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="manifest" href="manifest.json">
+
+  <style>
+    body {
+      margin: 0;
+      font-family: Arial, Helvetica, sans-serif;
+      background: #f2f5f9;
+      color: #333;
+    }
+
+    .container {
+      max-width: 420px;
+      margin: 40px auto;
+      padding: 20px;
+      background: #ffffff;
+      border-radius: 10px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    }
+
+    h2 {
+      text-align: center;
+      margin-bottom: 20px;
+      color: #0a3d62;
+    }
+
+    label {
+      display: block;
+      margin-top: 15px;
+      margin-bottom: 5px;
+      font-size: 14px;
+      font-weight: bold;
+    }
+
+    input, select {
+      width: 100%;
+      padding: 10px;
+      font-size: 16px;
+      border-radius: 6px;
+      border: 1px solid #ccc;
+      box-sizing: border-box;
+    }
+
+    button {
+      margin-top: 20px;
+      width: 100%;
+      padding: 12px;
+      font-size: 16px;
+      background: #0a3d62;
+      color: #fff;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background: #07508a;
+    }
+
+    pre {
+      margin-top: 20px;
+      padding: 15px;
+      background: #f7f9fb;
+      border-radius: 6px;
+      font-size: 14px;
+      white-space: pre-wrap;
+    }
+  </style>
 </head>
+
 <body>
-  <h2>Cálculo de materiales – Losa</h2>
+  <div class="container">
+    <h2>Cálculo de materiales – Losa</h2>
 
-  <label>Largo (m)</label>
-  <input type="number" id="largo" step="0.1"><br>
+    <label>Largo (m)</label>
+    <input type="number" id="largo" step="0.1">
 
-  <label>Ancho (m)</label>
-  <input type="number" id="ancho" step="0.1"><br>
+    <label>Ancho (m)</label>
+    <input type="number" id="ancho" step="0.1">
 
-  <label>Espesor (m)</label>
-  <input type="number" id="espesor" step="0.01"><br>
+    <label>Espesor (m)</label>
+    <input type="number" id="espesor" step="0.01">
 
-  <label>Tipo de Hormigón</label>
-  <select id="hormigon">
-    <option value="H17">H17</option>
-    <option value="H21">H21</option>
-    <option value="H25">H25</option>
-  </select><br><br>
+    <label>Tipo de Hormigón</label>
+    <select id="hormigon">
+      <option value="H17">H17</option>
+      <option value="H21">H21</option>
+      <option value="H25">H25</option>
+    </select>
 
-  <button onclick="calcular()">Calcular</button>
+    <button onclick="calcular()">Calcular</button>
 
-  <pre id="resultado"></pre>
+    <pre id="resultado"></pre>
+  </div>
 
 <script>
 if ('serviceWorker' in navigator) {
@@ -38,20 +107,25 @@ function calcular() {
   const l = +largo.value;
   const a = +ancho.value;
   const e = +espesor.value;
-  const tipo = hormigon.value;
 
+  if (!l || !a || !e) {
+    resultado.textContent = "Completá todos los campos.";
+    return;
+  }
+
+  const tipo = hormigon.value;
   const volumen = l * a * e;
 
   const dosificaciones = {
-    H17: { cemento: 300, arena: 0.5, piedra: 0.7 },
+    H17: { cemento: 300, arena: 0.50, piedra: 0.70 },
     H21: { cemento: 350, arena: 0.48, piedra: 0.65 },
-    H25: { cemento: 400, arena: 0.45, piedra: 0.6 }
+    H25: { cemento: 400, arena: 0.45, piedra: 0.60 }
   };
 
   const d = dosificaciones[tipo];
 
   resultado.textContent =
-`Volumen: ${volumen.toFixed(2)} m³
+`Volumen de hormigón: ${volumen.toFixed(2)} m³
 
 Cemento: ${(volumen * d.cemento).toFixed(0)} kg
 Arena: ${(volumen * d.arena).toFixed(2)} m³
