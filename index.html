@@ -1,135 +1,202 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="UTF-8">
-  <title>Cálculo de Losa</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link rel="manifest" href="manifest.json">
+<meta charset="UTF-8">
+<title>Calculadora de Ingeniería</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
 
-  <style>
-    body {
-      margin: 0;
-      font-family: Arial, Helvetica, sans-serif;
-      background: #f2f5f9;
-      color: #333;
-    }
+<style>
+body {
+  margin: 0;
+  font-family: Arial, Helvetica, sans-serif;
+  background: #eef2f6;
+}
 
-    .container {
-      max-width: 420px;
-      margin: 40px auto;
-      padding: 20px;
-      background: #ffffff;
-      border-radius: 10px;
-      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
-    }
+.app {
+  display: flex;
+  height: 100vh;
+}
 
-    h2 {
-      text-align: center;
-      margin-bottom: 20px;
-      color: #0a3d62;
-    }
+/* Sidebar */
+.sidebar {
+  width: 220px;
+  background: #0a3d62;
+  color: #fff;
+  padding: 15px;
+}
 
-    label {
-      display: block;
-      margin-top: 15px;
-      margin-bottom: 5px;
-      font-size: 14px;
-      font-weight: bold;
-    }
+.sidebar h3 {
+  margin-top: 0;
+  margin-bottom: 15px;
+  font-size: 18px;
+}
 
-    input, select {
-      width: 100%;
-      padding: 10px;
-      font-size: 16px;
-      border-radius: 6px;
-      border: 1px solid #ccc;
-      box-sizing: border-box;
-    }
+.sidebar button {
+  width: 100%;
+  margin-bottom: 10px;
+  padding: 10px;
+  background: #07508a;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  text-align: left;
+  cursor: pointer;
+}
 
-    button {
-      margin-top: 20px;
-      width: 100%;
-      padding: 12px;
-      font-size: 16px;
-      background: #0a3d62;
-      color: #fff;
-      border: none;
-      border-radius: 6px;
-      cursor: pointer;
-    }
+.sidebar button:hover {
+  background: #0c6cb3;
+}
 
-    button:hover {
-      background: #07508a;
-    }
+/* Main */
+.main {
+  flex: 1;
+  padding: 20px;
+  overflow-y: auto;
+}
 
-    pre {
-      margin-top: 20px;
-      padding: 15px;
-      background: #f7f9fb;
-      border-radius: 6px;
-      font-size: 14px;
-      white-space: pre-wrap;
-    }
-  </style>
+.block {
+  display: none;
+  max-width: 500px;
+  background: white;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+}
+
+.block.active {
+  display: block;
+}
+
+label {
+  display: block;
+  margin-top: 12px;
+  font-weight: bold;
+}
+
+input, select {
+  width: 100%;
+  padding: 8px;
+  margin-top: 4px;
+}
+
+button.calc {
+  margin-top: 15px;
+  width: 100%;
+  padding: 10px;
+  background: #0a3d62;
+  color: white;
+  border: none;
+  border-radius: 5px;
+}
+
+pre {
+  margin-top: 15px;
+  background: #f4f6f8;
+  padding: 10px;
+  border-radius: 5px;
+}
+</style>
 </head>
 
 <body>
-  <div class="container">
-    <h2>Cálculo de materiales – Losa</h2>
+<div class="app">
 
-    <label>Largo (m)</label>
-    <input type="number" id="largo" step="0.1">
-
-    <label>Ancho (m)</label>
-    <input type="number" id="ancho" step="0.1">
-
-    <label>Espesor (m)</label>
-    <input type="number" id="espesor" step="0.01">
-
-    <label>Tipo de Hormigón</label>
-    <select id="hormigon">
-      <option value="H17">H17</option>
-      <option value="H21">H21</option>
-      <option value="H25">H25</option>
-    </select>
-
-    <button onclick="calcular()">Calcular</button>
-
-    <pre id="resultado"></pre>
+  <!-- Sidebar -->
+  <div class="sidebar">
+    <h3>Cálculos</h3>
+    <button onclick="showBlock('losa')">Losa de hormigón</button>
+    <button onclick="showBlock('bloque2')">Bloque 2</button>
+    <button onclick="showBlock('bloque3')">Bloque 3</button>
+    <button onclick="showBlock('bloque4')">Bloque 4</button>
+    <button onclick="showBlock('bloque5')">Bloque 5</button>
   </div>
 
+  <!-- Main -->
+  <div class="main">
+
+    <!-- BLOQUE 1: LOSA -->
+    <div id="losa" class="block active">
+      <h2>Losa de hormigón</h2>
+
+      <label>Largo (m)</label>
+      <input type="number" id="largo">
+
+      <label>Ancho (m)</label>
+      <input type="number" id="ancho">
+
+      <label>Espesor (m)</label>
+      <input type="number" id="espesor">
+
+      <label>Hormigón</label>
+      <select id="hormigon">
+        <option value="H17">H17</option>
+        <option value="H21">H21</option>
+        <option value="H25">H25</option>
+      </select>
+
+      <button class="calc" onclick="calcLosa()">Calcular</button>
+
+      <pre id="resLosa"></pre>
+    </div>
+
+    <!-- BLOQUE 2 -->
+    <div id="bloque2" class="block">
+      <h2>Bloque 2</h2>
+      <p>Próximo cálculo.</p>
+    </div>
+
+    <!-- BLOQUE 3 -->
+    <div id="bloque3" class="block">
+      <h2>Bloque 3</h2>
+      <p>Próximo cálculo.</p>
+    </div>
+
+    <!-- BLOQUE 4 -->
+    <div id="bloque4" class="block">
+      <h2>Bloque 4</h2>
+      <p>Próximo cálculo.</p>
+    </div>
+
+    <!-- BLOQUE 5 -->
+    <div id="bloque5" class="block">
+      <h2>Bloque 5</h2>
+      <p>Próximo cálculo.</p>
+    </div>
+
+  </div>
+</div>
+
 <script>
-if ('serviceWorker' in navigator) {
-  navigator.serviceWorker.register('sw.js');
+function showBlock(id) {
+  document.querySelectorAll('.block').forEach(b => b.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
 }
 
-function calcular() {
+/* Cálculo Losa */
+function calcLosa() {
   const l = +largo.value;
   const a = +ancho.value;
   const e = +espesor.value;
-
   if (!l || !a || !e) {
-    resultado.textContent = "Completá todos los campos.";
+    resLosa.textContent = "Completá todos los datos.";
     return;
   }
 
-  const tipo = hormigon.value;
   const volumen = l * a * e;
+  const tipo = hormigon.value;
 
-  const dosificaciones = {
-    H17: { cemento: 300, arena: 0.50, piedra: 0.70 },
-    H21: { cemento: 350, arena: 0.48, piedra: 0.65 },
-    H25: { cemento: 400, arena: 0.45, piedra: 0.60 }
-  };
+  const d = {
+    H17: { c: 300, a: 0.50, p: 0.70 },
+    H21: { c: 350, a: 0.48, p: 0.65 },
+    H25: { c: 400, a: 0.45, p: 0.60 }
+  }[tipo];
 
-  const d = dosificaciones[tipo];
+  resLosa.textContent =
+`Volumen: ${volumen.toFixed(2)} m³
 
-  resultado.textContent =
-`Volumen de hormigón: ${volumen.toFixed(2)} m³
-
-Cemento: ${(volumen * d.cemento).toFixed(0)} kg
-Arena: ${(volumen * d.arena).toFixed(2)} m³
-Piedra: ${(volumen * d.piedra).toFixed(2)} m³`;
+Cemento: ${(volumen * d.c).toFixed(0)} kg
+Arena: ${(volumen * d.a).toFixed(2)} m³
+Piedra: ${(volumen * d.p).toFixed(2)} m³`;
 }
 </script>
 </body>
