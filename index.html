@@ -6,7 +6,6 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 
 <link rel="manifest" href="manifest.json">
-<meta name="theme-color" content="#0a3d62">
 
 <style>
 body {
@@ -85,10 +84,22 @@ pre {
   padding: 10px;
   border-radius: 5px;
 }
+
+/* Estilos BLOQUE 2 */
+.box {
+  padding: 20px;
+  border: 1px solid #444;
+  border-radius: 8px;
+  margin: 10px 0;
+  text-align: center;
+}
+
+.valor {
+  font-size: 2rem;
+  font-weight: bold;
+}
 </style>
 </head>
-
-
 
 <body>
 
@@ -121,8 +132,20 @@ pre {
 <!-- SECCIÓN 2 -->
 <div id="sec2" class="section">
   <div class="card">
-    <h2>Cálculo 2</h2>
-    <p>Reservado para futuro.</p>
+    <h2>Indicadores económicos</h2>
+
+    <div class="box">
+      <div>Dólar Oficial Venta (Banco Nación)</div>
+      <div class="valor" id="dolar">1490</div>
+      <div>ARS</div>
+    </div>
+
+    <div class="box">
+      <div>Riesgo País (Argentina)</div>
+      <div class="valor" id="riesgo">651</div>
+      <div>puntos</div>
+    </div>
+
   </div>
 </div>
 
@@ -153,19 +176,15 @@ pre {
 <!-- Navegación -->
 <div class="nav">
   <button class="active" onclick="show(1)">Losa</button>
-  <button onclick="show(2)">2</button>
+  <button onclick="show(2)">Econ</button>
   <button onclick="show(3)">3</button>
   <button onclick="show(4)">4</button>
   <button onclick="show(5)">5</button>
 </div>
 
 <script>
-
 if ('serviceWorker' in navigator) {
-  navigator.serviceWorker.register(
-    '/Calculadora/sw.js',
-    { scope: '/Calculadora/' }
-  );
+  navigator.serviceWorker.register('/Calculadora/sw.js');
 }
 
 function show(n) {
@@ -200,26 +219,6 @@ Arena: ${(v*d.a).toFixed(2)} m³
 Piedra: ${(v*d.p).toFixed(2)} m³`;
 }
 </script>
-
-<button id="installBtn" hidden>Instalar app</button>
-
-<script>
-let deferredPrompt;
-
-window.addEventListener("beforeinstallprompt", (e) => {
-  e.preventDefault();
-  deferredPrompt = e;
-  document.getElementById("installBtn").hidden = false;
-});
-
-document.getElementById("installBtn").addEventListener("click", async () => {
-  if (!deferredPrompt) return;
-  deferredPrompt.prompt();
-  deferredPrompt = null;
-});
-</script>
-
-
 
 </body>
 </html>
