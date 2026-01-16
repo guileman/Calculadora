@@ -1,6 +1,6 @@
 {
-  "name": "Calculadora de Losa",
-  "short_name": "Losa",
+  "name": "Calculadora genérica",
+  "short_name": "eCalc",
   "start_url": "/Calculadora/",
   "scope": "/Calculadora/",
   "display": "standalone",
